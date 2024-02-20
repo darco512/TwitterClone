@@ -9,12 +9,11 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
         return mime[0].toLowerCase() == 'image'
     }
 </script>
-
 <template>
     <div class="bg-white border rounded p-4 shadow mb-3">
         <div class="flex items-center gap-2 mb-3">
             <a href="javascript:void(0)">
-                <img :src="post.user.avatar" class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500" />
+                <img :src="post.user.avatar_url" class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500" />
             </a>
             <div>
                 <h4 class="font-bold">
@@ -29,16 +28,18 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
         </div>
         <div class="mb-3">
             <Disclosure v-slot="{ open }">
-                <div v-if="!open" v-html="post.body.substring(0, 200) + '...'" />
-                <DisclosurePanel class="">
+                <div v-if="!open" v-html="post.body.substring(0, 200)" />
+                <template v-if="post.body.length > 200">
+                    <DisclosurePanel class="">
                     <div v-html="post.body" />
-                </DisclosurePanel>
-                <div class="flex justify-end">
-                    <DisclosureButton class="text-blue-500 hover:underline"
-                    >
-                        {{ open ? "Read Less" : "Read More"}}
-                    </DisclosureButton>
-                </div>
+                    </DisclosurePanel>
+                    <div class="flex justify-end">
+                        <DisclosureButton class="text-blue-500 hover:underline"
+                        >
+                            {{ open ? "Read Less" : "Read More"}}
+                        </DisclosureButton>
+                    </div>
+                </template>
             </Disclosure>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
