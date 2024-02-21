@@ -36,7 +36,7 @@ function onInputChange($event) {
         v-model="model"
         @input="onInputChange"
         ref="input"
-        :placeholder="placeholder"
+        placeholder="placeholder"
         style="resize: none; overflow-y: hidden;"
     ></textarea>
 </template>

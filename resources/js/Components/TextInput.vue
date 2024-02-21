@@ -7,6 +7,16 @@ const model = defineModel({
     placeholder: String
 });
 
+defineProps({
+    modelValue: {
+        type: String,
+        required: true
+    },
+    placeholder: String
+})
+
+defineEmits(['update:modelValue']);
+
 const input = ref(null);
 
 onMounted(() => {
@@ -21,8 +31,9 @@ defineExpose({ focus: () => input.value.focus() });
 <template>
     <input
         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-        v-model="model"
+        :value="modelValue"
         ref="input"
-        :placeholder="placeholder"
+        @input="$emit('update:modelValue', $event.target.value)"
+        placeholder="placeholder"
     />
 </template>

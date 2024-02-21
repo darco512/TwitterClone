@@ -12,7 +12,6 @@ defineProps({
 </script>
 
 <template>
-    <pre>{{ posts }}</pre>
     <Head title="Social Media Website" />
     <AuthenticatedLayout>
         <div class="grid lg:grid-cols-12 gap-3 p-4 h-full">
