@@ -35,7 +35,7 @@
                     as="h3"
                     class="flex items-center justify-between py-3 px-4 font-medium bg-gray-100 leading-6 text-gray-900"
                     >
-                        Update Post
+                        {{form.id ? 'Update Post' : 'Create Post'}}
                         <button 
                             class="w-8 h-8 rounded-full hover:bg-black/5 transition flex items-center justify-center"
                             @click="show = false"
@@ -82,6 +82,7 @@ import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { useForm } from '@inertiajs/vue3';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+
 const editor = ClassicEditor;
 
 const editorConfig = {
@@ -118,12 +119,24 @@ watch(() => props.post, () => {
 
   function submit() {
 
-    form.put(route('post.update', props.post.id), {
-        preserveScroll: true,
-        onSuccess: () => {
-            show.value = false
-        }
-    })
+    if(form.id) {
+
+        form.put(route('post.update', props.post.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                show.value = false
+                form.reset()
+            }
+        })
+    } else {
+        form.post(route('post.create'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                show.value = false
+                form.reset()
+            }
+        });
+    }
   }
 
 
