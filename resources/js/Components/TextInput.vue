@@ -34,6 +34,6 @@ defineExpose({ focus: () => input.value.focus() });
         :value="modelValue"
         ref="input"
         @input="$emit('update:modelValue', $event.target.value)"
-        placeholder="placeholder"
+        :placeholder="placeholder"
     />
 </template>
