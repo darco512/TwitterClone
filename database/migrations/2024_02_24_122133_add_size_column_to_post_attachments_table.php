@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::dropIfExists('post_attachments');
-        
+        Schema::table('post_attachments', function (Blueprint $table) {
+            $table->integer('size')->after('mime');
+        });
     }
 
     /**
@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_attachments');
+        Schema::table('post_attachments', function (Blueprint $table) {
+            $table->dropColumn('size');
+        });
     }
 };
