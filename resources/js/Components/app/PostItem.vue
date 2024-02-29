@@ -116,9 +116,9 @@ const emit = defineEmits(['editClick'])
                         + {{ post.attachments.length - 4 }} more
                     </div>
 
-                    <button class="z-20 opacity-0 group-hover:opacity-100 transitions-all w-8 h-8 flex items-center justify-center cursor-pointer absolute top-2 right-2 bg-gray-600 hover:bg-gray-800 rounded text-gray-100">
+                    <a :href="route('post.download', attachment)" class="z-20 opacity-0 group-hover:opacity-100 transitions-all w-8 h-8 flex items-center justify-center cursor-pointer absolute top-2 right-2 bg-gray-600 hover:bg-gray-800 rounded text-gray-100">
                         <ArrowDownTrayIcon class="w-4 h-4" /> 
-                    </button>
+                    </a>
 
                     <img v-if="isImage(attachment)" :src="attachment.url" class="object-contain aspect-square"/>
 
