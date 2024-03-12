@@ -6,13 +6,13 @@ import PostUserHeader from './PostUserHeader.vue';
 import { router } from '@inertiajs/vue3';
 import { isImage } from '@/helpers.js'
 import { ChatBubbleLeftRightIcon, HandThumbUpIcon } from '@heroicons/vue/24/outline';
-import { ArrowDownTrayIcon } from '@heroicons/vue/24/solid';
+import { ArrowDownTrayIcon, PaperClipIcon } from '@heroicons/vue/24/solid';
 
 const props = defineProps({
         post: Object
     })
 
-const emit = defineEmits(['editClick'])
+const emit = defineEmits(['editClick', 'attachmentClick'])
 
 
     function openEditModal(){
@@ -25,6 +25,10 @@ const emit = defineEmits(['editClick'])
                 preserveScroll: true
             })
         }
+    }
+
+    function openAttachment(index){
+        emit('attachmentClick', props.post, index)
     }
 </script>
 <template>
@@ -109,8 +113,11 @@ const emit = defineEmits(['editClick'])
         <div class="grid gap-3" :class="[
             post.attachments.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
         ]">
-            <div v-for="(attachment, ind) of post.attachments.slice(0, 4)" >
-                <div class="group bg-blue-100 aspect-square flex flex-col items-center justify-center text-gray-500 relative mb-3">
+            <template v-for="(attachment, ind) of post.attachments.slice(0, 4)" >
+                <div 
+                    @click="openAttachment(ind)"
+                    class="group bg-blue-100 aspect-square flex flex-col items-center justify-center text-gray-500 relative mb-3"
+                >
 
                     <div v-if="ind===3 && post.attachments.length > 4" class="absolute left-0 top-0 right-0 bottom-0 z-10 bg-black/60 text-white flex items-center justify-center text-2xl">
                         + {{ post.attachments.length - 4 }} more
@@ -122,15 +129,12 @@ const emit = defineEmits(['editClick'])
 
                     <img v-if="isImage(attachment)" :src="attachment.url" class="object-contain aspect-square"/>
 
-                    <template v-else>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
-                            <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625Z" />
-                            <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
-                        </svg>
+                    <template v-else class="flex flex-col justify-center items-center">
+                        <PaperClipIcon class="w-10 h-10 mb-3"/>
                         <small>{{ attachment.name }}</small>
                     </template>
                 </div>
-            </div>
+            </template>
         </div>
         <div class="flex gap-2">
             <button class="flex flex-1 gap-1 items-center py-2 px-4 justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-lg">
