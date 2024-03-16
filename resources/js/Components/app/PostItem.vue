@@ -89,7 +89,7 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
                             Delete
                         </button>
                         </MenuItem>
-                    </div>  
+                    </div>
                     </MenuItems>
                 </transition>
                 </Menu>
@@ -114,7 +114,7 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
             post.attachments.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
         ]">
             <template v-for="(attachment, ind) of post.attachments.slice(0, 4)" >
-                <div 
+                <div
                     @click="openAttachment(ind)"
                     class="group bg-blue-100 aspect-square flex flex-col items-center justify-center text-gray-500 relative mb-3"
                 >
@@ -123,8 +123,8 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
                         + {{ post.attachments.length - 4 }} more
                     </div>
 
-                    <a :href="route('post.download', attachment)" class="z-20 opacity-0 group-hover:opacity-100 transitions-all w-8 h-8 flex items-center justify-center cursor-pointer absolute top-2 right-2 bg-gray-600 hover:bg-gray-800 rounded text-gray-100">
-                        <ArrowDownTrayIcon class="w-4 h-4" /> 
+                    <a @click.stop :href="route('post.download', attachment)" class="z-20 opacity-0 group-hover:opacity-100 transitions-all w-8 h-8 flex items-center justify-center cursor-pointer absolute top-2 right-2 bg-gray-600 hover:bg-gray-800 rounded text-gray-100">
+                        <ArrowDownTrayIcon class="w-4 h-4" />
                     </a>
 
                     <img v-if="isImage(attachment)" :src="attachment.url" class="object-contain aspect-square"/>
@@ -147,7 +147,7 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
             </button>
         </div>
     </div>
-    
+
 </template>
 
 
