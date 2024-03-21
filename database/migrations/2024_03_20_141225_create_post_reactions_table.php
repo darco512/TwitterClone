@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_raactions', function (Blueprint $table) {
+        Schema::create('post_reactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->constrained('posts');
             $table->string('type'); // like, dislike, sad, laugh
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_raactions');
+        Schema::dropIfExists('post_reactions');
     }
 };

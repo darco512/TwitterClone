@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Enums\PostReactionEnum;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\PostAttachment;
+use App\Models\PostReaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -26,7 +29,7 @@ class PostController extends Controller
         DB::beginTransaction();
 
         $allFilePaths = [];
-        
+
         try{
             $post = Post::create($data);
 
@@ -35,7 +38,7 @@ class PostController extends Controller
 
             foreach ($files as $file) {
                 $path = $file->store('attachments/-'.$post->id, 'public');
-                $allFilePaths[] = $path;  
+                $allFilePaths[] = $path;
                 PostAttachment::create([
                     'post_id' => $post->id,
                     'name' => $file->getClientOriginalName(),
@@ -53,7 +56,7 @@ class PostController extends Controller
                 Storage::disk('public')->delete($path);
             }
             DB::rollBack();
-            throw $e; 
+            throw $e;
         }
 
         return back();
@@ -64,13 +67,13 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        
+
         $user = $request->user();
 
         DB::beginTransaction();
 
         $allFilePaths = [];
-        
+
         try{
 
             $data = $request->validated();
@@ -88,7 +91,7 @@ class PostController extends Controller
             $files = $data['attachments'] ?? [];
             foreach ($files as $file) {
                 $path = $file->store('attachments/-'.$post->id, 'public');
-                $allFilePaths[] = $path;  
+                $allFilePaths[] = $path;
                 PostAttachment::create([
                     'post_id' => $post->id,
                     'name' => $file->getClientOriginalName(),
@@ -106,7 +109,7 @@ class PostController extends Controller
                 Storage::disk('public')->delete($path);
             }
             DB::rollBack();
-            throw $e; 
+            throw $e;
         }
 
         return back();
@@ -119,7 +122,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        
+
         $id = Auth::id();
 
         if ($post->user_id !== $id) {
@@ -135,5 +138,37 @@ class PostController extends Controller
     {
 
         return response()->download(Storage::disk('public')->path($attachment->path), $attachment->name);
+    }
+
+    public function postReaction(Request $request, Post $post)
+    {
+        $user = $request->user();
+
+        $data = $request->validate([
+            'reaction' => [Rule::enum(PostReactionEnum::class)],
+        ]);
+
+        $userId = Auth::id();
+
+        $reaction = PostReaction::where('user_id', $userId)->where('post_id', $post->id)->first();
+
+        if ($reaction) {
+            $hasReaction = false;
+            $reaction->delete();
+        } else {
+            $hasReaction = true;
+            PostReaction::create([
+                'post_id' => $post->id,
+                'user_id' => $userId,
+                'type' => $data['reaction'],
+            ]);
+        }
+
+        $reactions = PostReaction::where('post_id', $post->id)->count();
+
+        return response([
+            'num_of_reactions' => $reactions,
+            'current_user_has_reaction' => $hasReaction
+        ]);
     }
 }
