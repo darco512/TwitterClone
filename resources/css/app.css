@@ -63,6 +63,10 @@
     margin: revert;
 }
 
+.ck-content-output > *:last-child {
+    margin-bottom: 0;
+}
+
 .ck-content-output > ol,
 .ck-content-output > ul {
     list-style: revert;
@@ -91,7 +95,7 @@
         overflow: hidden;
         padding-left: 1.5em;
         padding-right: 1.5em;
-        
+
 }
 
 .ck-content-output a {

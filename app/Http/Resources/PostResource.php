@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
 class PostResource extends JsonResource
 {
     /**
@@ -23,7 +22,9 @@ class PostResource extends JsonResource
             'group' => $this->group,
             'attachments' => PostAttachmentResource::collection($this->attachments),
             'num_of_reactions' => $this->reactions_count,
-            'current_user_has_reaction' => $this->reactions->count() > 0
+            'num_of_comments' => $this->comments_count,
+            'current_user_has_reaction' => $this->reactions->count() > 0,
+            'comments' => CommentResource::collection($this->latest5Comments),
         ];
     }
 }
