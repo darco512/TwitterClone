@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { Disclosure, DisclosurePanel, DisclosureButton } from '@headlessui/vue';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 
 defineProps({
     content: String,
