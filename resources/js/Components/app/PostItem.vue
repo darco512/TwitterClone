@@ -1,15 +1,12 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
 import PostUserHeader from './PostUserHeader.vue';
 import { router, usePage } from '@inertiajs/vue3';
 import { isImage } from '@/helpers.js'
-import { ChatBubbleLeftRightIcon, HandThumbUpIcon } from '@heroicons/vue/24/outline';
+import { ChatBubbleLeftEllipsisIcon, ChatBubbleLeftRightIcon, HandThumbUpIcon } from '@heroicons/vue/24/outline';
 import { ArrowDownTrayIcon, PaperClipIcon } from '@heroicons/vue/24/solid';
 import axiosClient from '@/axiosClient.js';
 import InputTextarea from '../InputTextarea.vue';
-import DangerButton from '../DangerButton.vue';
 import IndigoButton from '../app/IndigoButton.vue';
 import ReadMoreReadLess from '../app/ReadMoreReadLess.vue';
 import EditDeleteDropdown from '../app/EditDeleteDropdown.vue';
@@ -67,7 +64,7 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
         if (!window.confirm('Are you sure you want to delete this comment?')){
             return false;
         }
-        axiosClient.delete(route('post.comment.delete', comment.id))
+        axiosClient.delete(route('comment.delete', comment.id))
             .then (({data})=>{
                 props.post.comments = props.post.comments.filter(c => c.id !== comment.id)
                 props.post.num_of_comments--
@@ -83,7 +80,7 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
     }
 
     function updateComment(comment) {
-        axiosClient.put(route('post.comment.update', editingComment.value.id), editingComment.value)
+        axiosClient.put(route('comment.update', editingComment.value.id), editingComment.value)
             .then (({data})=>{
 
                 editingComment.value = null
@@ -97,6 +94,15 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
             })
     }
 
+    function sendCommentReaction(comment) {
+        axiosClient.post(route('comment.reaction', comment.id), {
+            reaction: 'like'
+        })
+        .then (({data})=>{
+            comment.current_user_has_reaction = data.current_user_has_reaction
+            comment.num_of_reactions = data.num_of_reactions
+        })
+    }
 
 </script>
 <template>
@@ -184,14 +190,35 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
                             </div>
                             <EditDeleteDropdown :user="comment.user" @edit="startCommentEdit(comment)" @delete="deleteComment(comment)"/>
                         </div>
-                        <div v-if="editingComment && editingComment.id === comment.id" class="ml-12">
-                            <InputTextarea  v-model="editingComment.comment" placeholder="Enter your comment here" rows="1" class="w-full max-h-[160px] resize-none"/>
-                            <div class="flex gap-2 justify-end">
-                                <button @click="editingComment = null" class="w-[100px] text-indigo-500" >Cancel</button>
-                                <IndigoButton @click="updateComment" class="w-[100px]">Submit</IndigoButton>
+                        <div class="pl-12">
+                            <div v-if="editingComment && editingComment.id === comment.id" >
+                                <InputTextarea  v-model="editingComment.comment" placeholder="Enter your comment here" rows="1" class="w-full max-h-[160px] resize-none"/>
+                                <div class="flex gap-2 justify-end">
+                                    <button @click="editingComment = null" class="w-[100px] text-indigo-500" >Cancel</button>
+                                    <IndigoButton @click="updateComment" class="w-[100px]">Submit</IndigoButton>
+                                </div>
+                            </div>
+                            <ReadMoreReadLess v-else :content="comment.comment" content-class="text-sm flex flex-1"/>
+                            <div class="mt-1 flex gap-2">
+                                <button
+                                    @click="sendCommentReaction(comment)"
+                                    class="flex items-center text-sm text-indigo-500 py-0.5 px-1 rounded-lg"
+                                    :class="[
+                                        comment.current_user_has_reaction ?
+                                        'bg-indigo-50 hover:bg-indigo-100' :
+                                        'hover:bg-indigo-50'
+                                        ]"
+                                >
+                                    <HandThumbUpIcon class="w-4 h-4 mr-2"/>
+                                    <span class="mr-2">{{ comment.num_of_reactions }}</span>
+                                    {{ comment.current_user_has_reaction ? 'unlike' : 'like' }}
+                                </button>
+                                <button class="flex items-center text-sm text-indigo-500 py-0.5 px-1 hover:bg-indigo-100 rounded-lg">
+                                    <ChatBubbleLeftEllipsisIcon class="w-4 h-4 mr-2"/>
+                                    reply
+                                </button>
                             </div>
                         </div>
-                        <ReadMoreReadLess v-else :content="comment.comment" content-class="text-sm flex flex-1 ml-12"/>
                     </div>
                 </div>
         </DisclosurePanel>
