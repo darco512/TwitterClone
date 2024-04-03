@@ -2,15 +2,15 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import PostUserHeader from './PostUserHeader.vue';
 import { router, usePage } from '@inertiajs/vue3';
-import { isImage } from '@/helpers.js'
 import { ChatBubbleLeftEllipsisIcon, ChatBubbleLeftRightIcon, HandThumbUpIcon } from '@heroicons/vue/24/outline';
-import { ArrowDownTrayIcon, PaperClipIcon } from '@heroicons/vue/24/solid';
 import axiosClient from '@/axiosClient.js';
 import InputTextarea from '../InputTextarea.vue';
 import IndigoButton from '../app/IndigoButton.vue';
 import ReadMoreReadLess from '../app/ReadMoreReadLess.vue';
 import EditDeleteDropdown from '../app/EditDeleteDropdown.vue';
 import { ref } from 'vue';
+import PostAttachments from './PostAttachments.vue';
+import CommentList from './CommentList.vue';
 
 const authUser = usePage().props.auth.user;
 const editingComment = ref(null);
@@ -18,7 +18,7 @@ const props = defineProps({
         post: Object
     })
 
-const newCommentText = ref('')
+
 
 const emit = defineEmits(['editClick', 'attachmentClick'])
 
@@ -117,29 +117,10 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
         <div class="grid gap-3" :class="[
             post.attachments.length === 1 ? 'grid-cols-1' : 'grid-cols-2'
         ]">
-            <template v-for="(attachment, ind) of post.attachments.slice(0, 4)" >
-                <div
-                    @click="openAttachment(ind)"
-                    class="group bg-blue-100 aspect-square flex flex-col items-center justify-center text-gray-500 relative mb-3"
-                >
-
-                    <div v-if="ind===3 && post.attachments.length > 4" class="absolute left-0 top-0 right-0 bottom-0 z-10 bg-black/60 text-white flex items-center justify-center text-2xl">
-                        + {{ post.attachments.length - 4 }} more
-                    </div>
-
-                    <a @click.stop :href="route('post.download', attachment)" class="z-20 opacity-0 group-hover:opacity-100 transitions-all w-8 h-8 flex items-center justify-center cursor-pointer absolute top-2 right-2 bg-gray-600 hover:bg-gray-800 rounded text-gray-100">
-                        <ArrowDownTrayIcon class="w-4 h-4" />
-                    </a>
-
-                    <img v-if="isImage(attachment)" :src="attachment.url" class="object-contain aspect-square"/>
-
-                    <template v-else class="flex flex-col justify-center items-center">
-                        <PaperClipIcon class="w-10 h-10 mb-3"/>
-                        <small>{{ attachment.name }}</small>
-                    </template>
-                </div>
-            </template>
+            <PostAttachments :attachments="post.attachments" @attachmentClick="openAttachment"/>
         </div>
+
+        <!-- Like and commnet buttons -->
 
         <Disclosure v-slot="{ open }">
             <div class="flex gap-2">
@@ -163,7 +144,8 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
                 </DisclosureButton>
             </div>
         <DisclosurePanel class="mt-3">
-                <div>
+            <CommentList :post="post" :data="{comments: post.comments}"/>
+                <!-- <div>
                     <div class="flex gap-2 mb-3">
                         <a href="javascript:void(0)">
                             <img :src="authUser.avatar_url" class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500" />
@@ -218,9 +200,13 @@ const emit = defineEmits(['editClick', 'attachmentClick'])
                                     reply
                                 </button>
                             </div>
+                            <div class="flex flex-1 mt-2">
+                                <InputTextarea v-model="newCommentText" placeholder="Enter your comment here" rows="1" class="w-full max-h-[160px] resize-none rounded-r-none"/>
+                                <IndigoButton @click="createComment" class="w-[100px] rounded-l-none">Submit</IndigoButton>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
         </DisclosurePanel>
       </Disclosure>
     </div>
