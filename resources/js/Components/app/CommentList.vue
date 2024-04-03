@@ -57,7 +57,13 @@
                                     </DisclosureButton>
                                 </div>
                                 <DisclosurePanel class="mt-3">
-                                    <CommentList :post="post" :data="{comments: comment.comments}" :parent-comment="comment"/>
+                                    <CommentList
+                                        :post="post"
+                                        :data="{comments: comment.comments}"
+                                        :parent-comment="comment"
+                                        @comment-create="onCommentCreate"
+                                        @comment-delete="onCommentDelete"
+                                    />
                                 </DisclosurePanel>
                             </Disclosure>
                         </div>
@@ -77,6 +83,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 import axiosClient from '@/axiosClient.js';
 
 const authUser = usePage().props.auth.user;
+const newCommentText = ref('')
 const editingComment = ref(null);
 
 const props = defineProps({
@@ -88,7 +95,7 @@ const props = defineProps({
     }
 })
 
-const newCommentText = ref('')
+const emit = defineEmits(['commentCreate', 'commentDelete']);
 
 function createComment() {
         axiosClient.post(route('post.comment.create', props.post), {
@@ -102,6 +109,7 @@ function createComment() {
                 props.parentComment.num_of_comments++
             }
             props.post.num_of_comments++
+            emit('commentCreate', data)
         })
     }
 
@@ -117,6 +125,7 @@ function createComment() {
                     props.parentComment.num_of_comments--
                 }
                 props.post.num_of_comments--
+                emit('commentDelete', comment)
             })
     }
 
@@ -151,6 +160,21 @@ function createComment() {
             comment.current_user_has_reaction = data.current_user_has_reaction
             comment.num_of_reactions = data.num_of_reactions
         })
+    }
+
+    function onCommentCreate(comment) {
+        if (props.parentComment) {
+            props.parentComment.num_of_comments++
+        }
+
+        emit('commentCreate', comment)
+    }
+
+    function onCommentDelete(comment) {
+        if (props.parentComment) {
+            props.parentComment.num_of_comments--
+        }
+        emit('commentDelete', comment)
     }
 </script>
 
