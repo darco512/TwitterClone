@@ -15,27 +15,25 @@ class HomeController extends Controller
         $userId = Auth::id();
         $posts = Post::query()
         ->withCount('reactions')
-        // ->withCount('comments')
         ->with([
             'comments' => function($query) use ($userId) {
                 $query
-                    // ->whereNull('parent_id')
-                    ->withCount('reactions')
-                //     ->withCount('comments')
-                //     ->with([
-                //         'reactions' => function ($query) use ($userId) {
-                //         $query->where('user_id', $userId);
-                // }])
-                ;
+                    ->withCount('reactions');
             },
             'reactions' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
         }])
         ->latest()
-        ->paginate(20);
+        ->paginate(3);
+
+
+        $posts = PostResource::collection($posts);
+        if ($request->wantsJson()) {
+            return $posts;
+        }
 
         return Inertia::render('Home', [
-            'posts' => PostResource::collection($posts)
+            'posts' => $posts
         ]);
     }
 }

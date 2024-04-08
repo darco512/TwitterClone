@@ -102,3 +102,25 @@
     text-decoration: underline;
     color: blue;
 }
+
+.comment-list::-webkit-scrollbar {
+    width: 12px;
+    background-color: transparent;
+}
+
+.comment-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 6px;
+}
+
+.comment-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.comment-list:hover::-webkit-scrollbar-thumb {
+    background-color: #E2F2FF;
+}
+
+.comment-list:hover::-webkit-scrollbar-track {
+    background-color: #CBD5E0;
+}
