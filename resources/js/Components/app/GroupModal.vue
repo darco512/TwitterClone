@@ -125,7 +125,7 @@ import axiosClient from '@/axiosClient.js';
 })
 
 
-  const emit = defineEmits(['update:modelValue', 'hide'])
+  const emit = defineEmits(['update:modelValue', 'hide', 'create'])
 
   function closeModal() {
     show.value = false
@@ -140,9 +140,9 @@ import axiosClient from '@/axiosClient.js';
 
   function submit() {
     axiosClient.post(route('group.create'), form)
-        .then(res => {
-            console.log(res);
+        .then(({data}) => {
             closeModal();
+            emit('create' , data)
         })
   }
 

@@ -38,7 +38,9 @@ class GroupController extends Controller
             'created_by' => Auth::id(),
         ];
 
-        $groupUser = GroupUser::create($groupUserData);
+        GroupUser::create($groupUserData);
+        $group->status = $groupUserData['status'];
+        $group->role = $groupUserData['role'];
 
         return response(new GroupResource($group), 201);
     }
