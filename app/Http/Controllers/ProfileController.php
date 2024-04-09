@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Inertia\Response;
 
 class ProfileController extends Controller
 {
@@ -26,9 +25,9 @@ class ProfileController extends Controller
             'user' => new UserResource($user),
         ]);
     }
-    
 
-    
+
+
 
     /**
      * Update the user's profile information.
@@ -73,7 +72,7 @@ class ProfileController extends Controller
             'cover' => ['nullable', 'image'],
             'avatar' => ['nullable', 'image'],
         ]);
-        
+
         $user = $request->user();
 
         $avatar = $data['avatar'] ?? null;
