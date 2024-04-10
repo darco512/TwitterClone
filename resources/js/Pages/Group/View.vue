@@ -75,7 +75,7 @@
                     <div class="flex justify-between items-center flex-1 p-4">
                         <h2 class="font-bold text-lg">{{ group.name }}</h2>
 
-                        <PrimaryButton v-if="isCurrentUserAdmin">Invite Users</PrimaryButton>
+                        <PrimaryButton @click="showInviteUserModal = true" v-if="isCurrentUserAdmin">Invite Users</PrimaryButton>
                         <PrimaryButton v-if="!group.role && group.auto_approval">Join To Group</PrimaryButton>
                         <PrimaryButton v-if="!group.role && ! group.auto_approval">Request To Join</PrimaryButton>
                     </div>
@@ -116,7 +116,7 @@
             </div>
         </div>
     </AuthenticatedLayout>
-
+    <InviteUserModal v-model="showInviteUserModal"/>
   </template>
 
 <script setup>
@@ -127,6 +127,7 @@ import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import TabItem from './Partials/TabItem.vue';
 import { XMarkIcon, CheckCircleIcon, CameraIcon } from '@heroicons/vue/24/solid'
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import InviteUserModal from './InviteUserModal.vue';
 
 const imagesForm = useForm({
     thumbnail: null,
@@ -136,6 +137,7 @@ const imagesForm = useForm({
 const showNotification = ref(true)
 const coverImageSrc = ref('')
 const thumbnailImageSrc = ref('')
+const showInviteUserModal = ref(false)
 
 const isCurrentUserAdmin = computed(() => props.group.role === 'admin' )
 
