@@ -74,10 +74,26 @@
                     </div>
                     <div class="flex justify-between items-center flex-1 p-4">
                         <h2 class="font-bold text-lg">{{ group.name }}</h2>
-
-                        <PrimaryButton @click="showInviteUserModal = true" v-if="isCurrentUserAdmin">Invite Users</PrimaryButton>
-                        <PrimaryButton v-if="!group.role && group.auto_approval">Join To Group</PrimaryButton>
-                        <PrimaryButton v-if="!group.role && ! group.auto_approval">Request To Join</PrimaryButton>
+                        <PrimaryButton v-if="!authUser"
+                                       :href="route('login')"
+                        >
+                            Login to join the group
+                        </PrimaryButton>
+                        <PrimaryButton v-if="isCurrentUserAdmin"
+                                       @click="showInviteUserModal = true"
+                        >
+                            Invite Users
+                        </PrimaryButton>
+                        <PrimaryButton v-if="authUser && !group.role && group.auto_approval"
+                                       @click="joinToGroup"
+                        >
+                            Join To Group
+                        </PrimaryButton>
+                        <PrimaryButton v-if="authUser && !group.role && ! group.auto_approval"
+                                        @click="joinToGroup"
+                        >
+                            Request To Join
+                        </PrimaryButton>
                     </div>
                 </div>
             </div>
@@ -122,7 +138,7 @@
 <script setup>
 import { computed, ref} from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import TabItem from './Partials/TabItem.vue';
 import { XMarkIcon, CheckCircleIcon, CameraIcon } from '@heroicons/vue/24/solid'
@@ -138,6 +154,7 @@ const showNotification = ref(true)
 const coverImageSrc = ref('')
 const thumbnailImageSrc = ref('')
 const showInviteUserModal = ref(false)
+const authUser = usePage().props.auth.user;
 
 const isCurrentUserAdmin = computed(() => props.group.role === 'admin' )
 
@@ -207,6 +224,13 @@ function submitThumbnailImage() {
     })
 }
 
+function joinToGroup() {
+    const form = useForm({
+
+    })
+
+    form.post(route('group.join', props.group.slug))
+}
 </script>
 
 <style lang="scss" scoped>
