@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import TextInput from '@/Components/TextInput.vue';
-import FollowingItem from './FollowingItem.vue';
+import UserItem from './UserItem.vue';
 
     const searchKeyword = ref('')
 </script>
@@ -13,38 +13,6 @@ import FollowingItem from './FollowingItem.vue';
         You don't have friends yet.
         </div>
         <div v-else>
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="John Doe" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="Katy Smith" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="John Doe" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="Katy Smith" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="John Doe" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="Katy Smith" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="John Doe" 
-            />
-            <FollowingItem 
-                image="https://picsum.photos/100" 
-                title="Katy Smith" 
-            />
         </div>
     </div>
 </template>
