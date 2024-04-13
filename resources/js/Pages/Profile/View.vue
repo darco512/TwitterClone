@@ -194,6 +194,7 @@ function resetAvatarImage() {
 
 function submitCoverImage() {
     imagesForm.post(route('profile.updateImages'), {
+        preserveScroll: true,
         onSuccess: (user) => {
             resetCoverImage()
             showNotification.value = true
@@ -206,6 +207,7 @@ function submitCoverImage() {
 
 function submitAvatarImage() {
     imagesForm.post(route('profile.updateImages'), {
+        preserveScroll: true,
         onSuccess: (user) => {
             resetAvatarImage()
             showNotification.value = true

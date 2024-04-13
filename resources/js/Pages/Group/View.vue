@@ -130,7 +130,10 @@
                                     v-for="user of users"
                                     :user="user"
                                     :key="user.id "
+                                    :show-role-dropdown="isCurrentUserAdmin"
+                                    :disable-role-dropdown="group.user_id === user.id"
                                     class="shadow rounded-lg"
+                                    @role-change="onRoleChange"
                                 />
                             </div>
                         </TabPanel>
@@ -236,6 +239,7 @@ function resetThumbnailImage() {
 
 function submitCoverImage() {
     imagesForm.post(route('group.updateImages', props.group.slug), {
+        preserveScroll: true,
         onSuccess: () => {
             resetCoverImage()
             showNotification.value = true
@@ -248,6 +252,7 @@ function submitCoverImage() {
 
 function submitThumbnailImage() {
     imagesForm.post(route('group.updateImages', props.group.slug), {
+
         onSuccess: () => {
             resetThumbnailImage()
             showNotification.value = true
@@ -261,7 +266,9 @@ function submitThumbnailImage() {
 function joinToGroup() {
     const form = useForm({})
 
-    form.post(route('group.join', props.group.slug))
+    form.post(route('group.join', props.group.slug), {
+        preserveScroll: true
+    })
 }
 
 function approveUser(user){
@@ -270,7 +277,9 @@ function approveUser(user){
         action: 'approve'
     })
 
-    form.post(route('group.approveRequest', props.group.slug))
+    form.post(route('group.approveRequest', props.group.slug), {
+        preserveScroll: true
+    })
 }
 
 function rejectUser(user){
@@ -279,7 +288,20 @@ function rejectUser(user){
         action: 'reject'
     })
 
-    form.post(route('group.approveRequest', props.group.slug))
+    form.post(route('group.approveRequest', props.group.slug), {
+        preserveScroll: true
+    })
+}
+
+function onRoleChange(user, role) {
+    const form = useForm({
+        user_id: user.id,
+        role
+    })
+
+    form.post(route('group.changeRole', props.group.slug), {
+        preserveScroll: true
+    })
 }
 </script>
 
