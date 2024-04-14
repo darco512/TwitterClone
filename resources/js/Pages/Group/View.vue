@@ -115,6 +115,9 @@
                         <Tab v-slot="{ selected }" as="template">
                             <TabItem text="Photos" :selected="selected" />
                         </Tab>
+                        <Tab v-if='isCurrentUserAdmin' v-slot="{ selected }" as="template">
+                            <TabItem text="About" :selected="selected" />
+                        </Tab>
                     </TabList>
 
                     <TabPanels class="mt-2">
@@ -156,6 +159,10 @@
                         <TabPanel class="bg-white p-3 shadow " >
                             Photos
                         </TabPanel>
+                        <TabPanel class="bg-white p-3 shadow " >
+                            <GroupForm :form="aboutForm"/>
+                            <PrimaryButton @click="updateGroup">Save</PrimaryButton>
+                        </TabPanel>
                     </TabPanels>
                 </TabGroup>
             </div>
@@ -175,11 +182,13 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InviteUserModal from './InviteUserModal.vue';
 import UserItem from '../../Components/app/UserItem.vue';
 import TextInput from '@/Components/TextInput.vue';
+import GroupForm from '../../Components/app/GroupForm.vue';
 
 const imagesForm = useForm({
     thumbnail: null,
     cover: null
 })
+
 
 const showNotification = ref(true)
 const coverImageSrc = ref('')
@@ -204,6 +213,14 @@ const props = defineProps({
     users: Array,
     requests: Array
 });
+
+
+
+const aboutForm = useForm({
+    name: usePage().props.group.name,
+    auto_approval: !!parseInt(usePage().props.group.auto_approval),
+    about: usePage().props.group.about
+})
 
 function onCoverChange(event) {
     imagesForm.cover = event.target.files[0];
@@ -303,6 +320,13 @@ function onRoleChange(user, role) {
         preserveScroll: true
     })
 }
+
+function updateGroup(){
+    aboutForm.put(route('group.update', props.group.slug), {
+        preserveScroll: true
+    })
+}
+
 </script>
 
 <style lang="scss" scoped>
