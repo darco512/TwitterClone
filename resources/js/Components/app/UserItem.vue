@@ -25,7 +25,7 @@ import PrimaryButton from '../PrimaryButton.vue';
     <div class="cursor-pointer bg-white border-2 border-transparent transition-all hover:border-indigo-600">
         <div class="flex items-center gap-2 py-2 px-2">
             <Link :href="route('profile', user.username)">
-                <img :src="user.avatar_url || '/image/default_avatar.webp'" class="w-[32px] rounded-full" />
+                <img :src="user.avatar_url" class="w-[32px] rounded-full" />
             </Link>
             <div class="flex justify-between flex-1">
                 <Link :href="route('profile', user.username)">

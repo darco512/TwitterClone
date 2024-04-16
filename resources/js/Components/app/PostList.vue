@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUpdated, ref } from 'vue';
+import { onMounted, onUpdated, ref, watch } from 'vue';
 import PostItem from './PostItem.vue';
 import PostModal from './PostModal.vue';
 import { usePage } from '@inertiajs/vue3';
@@ -15,13 +15,22 @@ const editPost = ref({})
 const previewAttachmentsPost = ref({})
 const loadMoreIntersect = ref(null)
 const allPosts = ref({
-    data: page.props.posts.data,
-    next: page.props.posts.links.next
+    data: [],
+    next: null
 })
 
 const props = defineProps({
     posts: Array
 })
+
+watch(() => page.props.posts, () => {
+    if(page.props.post) {
+        allPosts.value = {
+            data: page.props.posts.data,
+            next: page.props.posts.links.next
+        }
+    }
+}, {deep: true, immediate: true})
 
 function openEditModal(post) {
     editPost.value = post;
@@ -51,12 +60,11 @@ function loadMore() {
     }
 
     axiosClient.get(allPosts.value.next)
-        .then(({data})=> {
+        .then(({data}) => {
             allPosts.value.data = [...allPosts.value.data, ...data.data]
             allPosts.value.next = data.links.next
         })
 }
-
 
 
 onMounted(()=> {
@@ -72,6 +80,7 @@ onMounted(()=> {
 
 <template>
     <div class="overflow-auto">
+
         <PostItem v-for="post of allPosts.data" :key="post.id" :post="post" @editClick="openEditModal" @attachmentClick="openAttachmentPreviewModal"/>
         <div ref="loadMoreIntersect"></div>
         <PostModal :post="editPost" v-model="showEditModal" @hide="onModalHide"/>

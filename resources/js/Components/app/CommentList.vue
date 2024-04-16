@@ -1,9 +1,9 @@
 <template>
                     <div>
                     <div class="flex gap-2 mb-3">
-                        <a href="javascript:void(0)">
+                        <Link :href="route('profile', authUser.username)">
                             <img :src="authUser.avatar_url" class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500" />
-                        </a>
+                        </Link>
                         <div class="flex flex-1">
                             <InputTextarea v-model="newCommentText" placeholder="Enter your comment here" rows="1" class="w-full max-h-[160px] resize-none rounded-r-none"/>
                             <IndigoButton @click="createComment" class="w-[100px] rounded-l-none">Submit</IndigoButton>
@@ -15,8 +15,8 @@
                         <div class="flex justify-between gap-2">
                             <div class="flex gap-2">
                                 <a href="javascript:void(0)">
-                                <img :src="comment.user.avatar_url" class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500" />
-                            </a>
+                                    <img :src="comment.user.avatar_url" class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500" />
+                                </a>
                             <div>
                                 <h4 class="font-bold">
                                     <a href="javascript:void(0)" class="hover:underline">{{ comment.user.name }}</a>
@@ -77,7 +77,7 @@ import InputTextarea from '../InputTextarea.vue';
 import EditDeleteDropdown from './EditDeleteDropdown.vue';
 import IndigoButton from './IndigoButton.vue';
 import ReadMoreReadLess from './ReadMoreReadLess.vue';
-import { usePage } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 import axiosClient from '@/axiosClient.js';
