@@ -24,7 +24,13 @@
                             <small class="text-xs text-gray-400">{{ comment.updated_at }}</small>
                             </div>
                             </div>
-                            <EditDeleteDropdown :user="comment.user" @edit="startCommentEdit(comment)" @delete="deleteComment(comment)"/>
+                            <EditDeleteDropdown
+                                :user="comment.user"
+                                :post="post"
+                                :comment="comment"
+                                @edit="startCommentEdit(comment)"
+                                @delete="deleteComment(comment)"
+                            />
                         </div>
                         <div class="pl-12">
                             <div v-if="editingComment && editingComment.id === comment.id" >

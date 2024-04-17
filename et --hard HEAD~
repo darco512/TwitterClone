@@ -1,0 +1,239 @@
+[33mcommit 06aea929c5e0e7c5dbd5ea007664be9de5912047[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Tue Apr 16 18:53:17 2024 +0300
+
+    Implement loading post on group page and create post in group
+
+[33mcommit 4d3abf75c55259bf9e8c99253248cf76b9417880[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sun Apr 14 21:32:46 2024 +0300
+
+    Implement group update
+
+[33mcommit 2d8e6fb66ca0175cded1214dbf4d233e9f4b6935[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sat Apr 13 15:35:54 2024 +0300
+
+    Implement user role change in group
+
+[33mcommit 195ed1c4f2c81bda17277a992397e45bf154ba8d[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sat Apr 13 11:31:44 2024 +0300
+
+    Display users and requests tabs on group page and implement requests processing
+
+[33mcommit 91a81c1390b32ced6aba54af7866469b7caf5b0f[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Apr 11 21:41:26 2024 +0300
+
+    Implement joint to group with auto approval
+
+[33mcommit 778689195f88e99eeb92e43be4d4a213989a166d[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Apr 10 21:31:53 2024 +0300
+
+    Implement sending and accepting group invitation
+
+[33mcommit 977634d388c415af106853af4d3357fa7902e6f6[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Tue Apr 9 10:37:07 2024 +0300
+
+    Implement group page, role access in group and and invite/join button rendering
+
+[33mcommit 5ee43e3e2b9659d0ca916d0883496b8c4fd90bd7[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Mon Apr 8 14:52:56 2024 +0300
+
+    Implement group rendering from backend
+
+[33mcommit c9cf66c6a8709d93f165213122ac948bd81d7c24[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Mon Apr 8 12:09:40 2024 +0300
+
+    Implement creating group
+
+[33mcommit bde0bf794df09c4949c3d8dd60c78c040a4e42e2[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Apr 3 23:17:42 2024 +0300
+
+    Query all comments of posts with a single select and construct tree in PHP
+
+[33mcommit 39d58e1c9f3ff4bfed245215d76b6401ece09e5e[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Apr 3 17:44:55 2024 +0300
+
+    Create reusable commentList component for comments and sub comments
+
+[33mcommit 0d5d38d1ea2c9382c5d9891a7428d9e040e50623[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Mar 27 21:26:37 2024 +0200
+
+    Implement like/unlike for comments
+
+[33mcommit 29b234dacd9716f2a0e3f1661ed53a7b476c09c6[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Tue Mar 26 15:00:05 2024 +0200
+
+    Implement comment editing and deleting
+
+[33mcommit fd2ff3a61634b1daeab95e096c40064756bb634f[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Mon Mar 25 15:58:53 2024 +0200
+
+    Implement creating comments on post
+
+[33mcommit 6646c1222941e753fd971a54326053eabcf16b0d[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Mar 21 22:33:02 2024 +0200
+
+    Implement like\unlike on the post
+
+[33mcommit 35f5947fab33fb19a801460f94111ffe04b8b38c[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Mon Mar 18 09:29:11 2024 +0200
+
+    Add size validation on the attachments
+
+[33mcommit f91ab86d999458f8907f8da5bebd20893df4f2a0[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sat Mar 16 18:57:27 2024 +0200
+
+    Display validation errors on attachments
+
+[33mcommit 6a918396f02762869b99a5fd0117614af8c6079b[m
+Author: Antons Kozlovs <darcohaha@gmail.com>
+Date:   Sat Mar 16 18:55:28 2024 +0200
+
+    Display propper validation errors on attachments
+
+[33mcommit a3147218a05fc17e0ee1961c3fa7c53d0813e635[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Tue Mar 12 21:01:14 2024 +0200
+
+    Implement preview of the attachments
+
+[33mcommit 3df1cd04131935cc7fe2ac1c1012980d21976713[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 29 07:55:17 2024 +0200
+
+    Implement downloading attachments from posts
+
+[33mcommit 625ce0607a67ef3518a6146c83ae378667519cb2[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Feb 28 22:04:35 2024 +0200
+
+    Implement editing post attachments, Removing and adding new ones
+
+[33mcommit 3172de22ba3b39a70c28f53a4cee81d058740228[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sun Feb 25 10:57:13 2024 +0200
+
+    Implement iploading attachments on server side
+
+[33mcommit 05861cfa4c394e85b2fd6ed69b65f07586d2af47[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sat Feb 24 10:09:13 2024 +0200
+
+    Implement uploadin attachments on vue side
+
+[33mcommit c40be787bddf71056a3d1a4431e0c7d6c4040aea[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Fri Feb 23 07:18:19 2024 +0200
+
+    Fix bug in HandleInetriaRequests
+
+[33mcommit 6ab05e3e79d8f5c12a15fd9304cccca0e88faaeb[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 22 22:42:53 2024 +0200
+
+    Implement post creation through Post modal
+
+[33mcommit 7bfb7d52cde6a2c4514503adb31d9cc147e6f6e6[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 22 20:22:47 2024 +0200
+
+    ad CK editor in post update modal
+
+[33mcommit 73af1844ed3bd41d2e786b5b5827986a980b999b[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 22 13:49:26 2024 +0200
+
+    Implement post delete
+
+[33mcommit 9837b63b2210f6879fec6c6dbe18619863c84474[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Feb 21 20:47:01 2024 +0200
+
+    Implement post update
+
+[33mcommit 313b0f2bcea2265b43e4cb9ed230499ad40287f5[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Tue Feb 20 20:11:54 2024 +0200
+
+    Implement post creation
+
+[33mcommit dc5208ae3e59a5d6d20474a6c240ca5120ecdc38[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Mon Feb 19 21:21:15 2024 +0200
+
+    Implement updating profile details
+
+[33mcommit 636b46e0e64d32a9e0ec8b17da4aa496bce8b975[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 8 20:34:07 2024 +0200
+
+    Implement uploading avatar image
+
+[33mcommit 23581c24c7e8bb7a4e54781e251e9cda1f09017f[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 8 19:03:41 2024 +0200
+
+    Implement deleting of the previous cover image
+
+[33mcommit f8b117e05c4e061ded36240f8f5591ba9f61880c[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Feb 8 18:50:25 2024 +0200
+
+    Implement uploading cover image on user
+
+[33mcommit 6ba121967fdcdd1a16f0a5fc9c606a7be7d98952[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Sat Jan 27 10:18:30 2024 +0200
+
+    Implement user profile page UI
+
+[33mcommit 33f60d1eaa24aeed42dd472959bf1061b18047a6[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Jan 25 19:48:15 2024 +0200
+
+    Use AuthenticatedLayout to display navbar on home page
+
+[33mcommit c14afdaf453f1101f6664149a7de6baad0660070[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Thu Jan 25 13:06:42 2024 +0200
+
+    Made a home page
+
+[33mcommit 7a30070e2972dc4157361bef65d510ad8b95c7af[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Jan 24 19:05:06 2024 +0200
+
+    Clear unnecessary routes and vue files
+
+[33mcommit bdd9c4a884d7e94fa379c1020d7e380ca427f979[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Jan 24 18:43:37 2024 +0200
+
+    Implemetn username create and update on user
+
+[33mcommit 43f3a37dd4775914183cade69ad23a382ffd5ac9[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Jan 24 17:56:02 2024 +0200
+
+    Add migrations to database schema
+
+[33mcommit 49c34286c26b98bb270bfd3a83d1dd5bcbf953b6[m
+Author: darco512 <darcohaha@gmail.com>
+Date:   Wed Jan 24 13:33:10 2024 +0200
+
+    Generate empty model and migrations

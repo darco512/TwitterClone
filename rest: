@@ -1,0 +1,45 @@
+[33m4d3abf7[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{0}: reset: moving to HEAD~
+[33m06aea92[m HEAD@{1}: commit: Implement loading post on group page and create post in group
+[33m4d3abf7[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{2}: reset: moving to HEAD^
+[33md0ab980[m HEAD@{3}: commit: Implement loading post on group page and create post in group
+[33m4d3abf7[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m HEAD@{4}: commit: Implement group update
+[33m2d8e6fb[m HEAD@{5}: commit: Implement user role change in group
+[33m195ed1c[m HEAD@{6}: commit: Display users and requests tabs on group page and implement requests processing
+[33m91a81c1[m HEAD@{7}: commit: Implement joint to group with auto approval
+[33m7786891[m HEAD@{8}: commit: Implement sending and accepting group invitation
+[33m977634d[m HEAD@{9}: reset: moving to HEAD^
+[33m3f0a2d5[m HEAD@{10}: commit: Implement group page, role access in group and and invite/join button rendering
+[33m977634d[m HEAD@{11}: commit: Implement group page, role access in group and and invite/join button rendering
+[33m5ee43e3[m HEAD@{12}: commit: Implement group rendering from backend
+[33mc9cf66c[m HEAD@{13}: commit: Implement creating group
+[33mbde0bf7[m HEAD@{14}: commit: Query all comments of posts with a single select and construct tree in PHP
+[33m39d58e1[m HEAD@{15}: commit: Create reusable commentList component for comments and sub comments
+[33m0d5d38d[m HEAD@{16}: commit: Implement like/unlike for comments
+[33m29b234d[m HEAD@{17}: commit: Implement comment editing and deleting
+[33mfd2ff3a[m[33m ([m[1;31morigin/master[m[33m)[m HEAD@{18}: commit: Implement creating comments on post
+[33m6646c12[m HEAD@{19}: commit: Implement like\unlike on the post
+[33m35f5947[m HEAD@{20}: commit: Add size validation on the attachments
+[33mf91ab86[m HEAD@{21}: commit: Display validation errors on attachments
+[33m6a91839[m HEAD@{22}: commit: Display propper validation errors on attachments
+[33ma314721[m HEAD@{23}: commit: Implement preview of the attachments
+[33m3df1cd0[m HEAD@{24}: commit: Implement downloading attachments from posts
+[33m625ce06[m HEAD@{25}: commit: Implement editing post attachments, Removing and adding new ones
+[33m3172de2[m HEAD@{26}: commit: Implement iploading attachments on server side
+[33m05861cf[m HEAD@{27}: commit: Implement uploadin attachments on vue side
+[33mc40be78[m HEAD@{28}: commit: Fix bug in HandleInetriaRequests
+[33m6ab05e3[m HEAD@{29}: commit: Implement post creation through Post modal
+[33m7bfb7d5[m HEAD@{30}: commit: ad CK editor in post update modal
+[33m73af184[m HEAD@{31}: commit: Implement post delete
+[33m9837b63[m HEAD@{32}: commit: Implement post update
+[33m313b0f2[m HEAD@{33}: commit: Implement post creation
+[33mdc5208a[m HEAD@{34}: commit: Implement updating profile details
+[33m636b46e[m HEAD@{35}: commit: Implement uploading avatar image
+[33m23581c2[m HEAD@{36}: commit: Implement deleting of the previous cover image
+[33mf8b117e[m HEAD@{37}: commit: Implement uploading cover image on user
+[33m6ba1219[m HEAD@{38}: commit: Implement user profile page UI
+[33m33f60d1[m HEAD@{39}: commit: Use AuthenticatedLayout to display navbar on home page
+[33mc14afda[m HEAD@{40}: commit: Made a home page
+[33m7a30070[m HEAD@{41}: commit: Clear unnecessary routes and vue files
+[33mbdd9c4a[m HEAD@{42}: commit: Implemetn username create and update on user
+[33m43f3a37[m HEAD@{43}: commit: Add migrations to database schema
+[33m49c3428[m HEAD@{44}: commit (initial): Generate empty model and migrations
