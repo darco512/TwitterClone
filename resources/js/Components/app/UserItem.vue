@@ -18,7 +18,7 @@ import PrimaryButton from '../PrimaryButton.vue';
         }
     })
 
-    defineEmits(['approve', 'reject', 'roleChange'])
+    defineEmits(['approve', 'reject', 'roleChange', 'delete'])
 </script>
 
 <template>
@@ -56,6 +56,13 @@ import PrimaryButton from '../PrimaryButton.vue';
                         <option :selected="user.role === 'admin'">admin</option>
                         <option :selected="user.role === 'user'">user</option>
                     </select>
+                    <button
+                        @click="$emit('delete', user)"
+                        class="text-xs py-1.5 px-2 rounded bg-gray-700 hover:bg-gray-800 ml-3 text-white disabled:bg-gray-500"
+                        :disabled="disableRoleDropdown"
+                    >
+                        delete
+                    </button>
                 </div>
             </div>
         </div>
