@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/group/remove-user/{group:slug}', [GroupController::class, 'removeUser'])->name('group.removeUser');
 
     //Posts
+    Route::get('/post/{post}', [PostController::class, 'view'])->name('post.view') ;
     Route::post('/post', [PostController::class, 'store'])->name('post.create') ;
     Route::put('/post/{post}', [PostController::class, 'update'])->name('post.update') ;
     Route::delete('/post/{post}', [PostController::class, 'destroy'])->name('post.destroy') ;

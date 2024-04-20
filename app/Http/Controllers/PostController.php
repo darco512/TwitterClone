@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\PostResource;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostAttachment;
@@ -62,7 +63,7 @@ class PostController extends Controller
 
             $group = $post->group;
             if ($group) {
-                $users = $group->approvedUsers()->where('users. id', '!=', $user->id)->get();
+                $users = $group->approvedUsers()->where('users.id', '!=', $user->id)->get();
                 Notification::send($users, new PostCreated($post, $group));
             }
 
@@ -216,7 +217,7 @@ class PostController extends Controller
 
         $post = $comment->post;
 
-        $post->user->notify(new CommentCreated($comment));
+        $post->user->notify(new CommentCreated($comment, $post));
 
         return response(new CommentResource($comment), 201);
 
@@ -288,6 +289,19 @@ class PostController extends Controller
         return response([
             'num_of_reactions' => $reactions,
             'current_user_has_reaction' => $hasReaction
+        ]);
+    }
+
+    public function view(Post $post) {
+        $post->loadCount('reactions');
+        $post->load([
+            'comments' => function($query) {
+                $query
+                    ->withCount('reactions');
+            },
+        ]);
+        return inertia('Post/View', [
+            'post' => new PostResource($post)
         ]);
     }
 }
