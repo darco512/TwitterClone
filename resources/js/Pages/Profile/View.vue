@@ -43,37 +43,50 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex">
-                    <div class="flex items-center justify-center relative group/avatar ml-[48px] w-[128px] h-[128px] -mt-[64px] rounded-full">
-                        <img
-                            :src="avatarImageSrc || user.avatar_url || '/image/default_avatar.webp'"
-                            class="w-full h-full object-cover rounded-full"
-                        />
-                        <button v-if="!avatarImageSrc" class="absolute flex items-center justify-center left-0 right-0 top-0 bottom-0 bg-black/50 text-gray-200 rounded-full opacity-0 group-hover/avatar:opacity-100">
-                            <CameraIcon class="w-8 h-8"/>
-                            <input
-                                type="file"
-                                class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer z-2"
-                                @change="onAvatarChange"
+                <div>
+                    <div class="flex">
+                        <div class="flex items-center justify-center relative group/avatar ml-[48px] w-[128px] h-[128px] -mt-[64px] rounded-full">
+                            <img
+                                :src="avatarImageSrc || user.avatar_url || '/image/default_avatar.webp'"
+                                class="w-full h-full object-cover rounded-full"
                             />
-                        </button>
-                        <div v-else class="absolute top-1 right-0 flex flex-col gap-2">
-                            <button
-                                class="w-7 h-7 flex items-center justify-center bg-red-500/80 text-white rounded-full"
-                                @click="resetAvatarImage"
-                            >
-                                <XMarkIcon class="h-5 w-5" />
+                            <button v-if="!avatarImageSrc" class="absolute flex items-center justify-center left-0 right-0 top-0 bottom-0 bg-black/50 text-gray-200 rounded-full opacity-0 group-hover/avatar:opacity-100">
+                                <CameraIcon class="w-8 h-8"/>
+                                <input
+                                    type="file"
+                                    class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer z-2"
+                                    @change="onAvatarChange"
+                                />
                             </button>
-                            <button
-                                class="w-7 h-7 flex items-center justify-center bg-emerald-500/80 text-white rounded-full"
-                                @click="submitAvatarImage"
-                            >
-                                <CheckCircleIcon class="h-5 w-5" />
-                            </button>
+                            <div v-else class="absolute top-1 right-0 flex flex-col gap-2">
+                                <button
+                                    class="w-7 h-7 flex items-center justify-center bg-red-500/80 text-white rounded-full"
+                                    @click="resetAvatarImage"
+                                >
+                                    <XMarkIcon class="h-5 w-5" />
+                                </button>
+                                <button
+                                    class="w-7 h-7 flex items-center justify-center bg-emerald-500/80 text-white rounded-full"
+                                    @click="submitAvatarImage"
+                                >
+                                    <CheckCircleIcon class="h-5 w-5" />
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex justify-between items-center flex-1 p-4">
-                        <h2 class="font-bold text-lg">{{ user.name }}</h2>
+                        <div class="flex justify-between items-center flex-1 p-4">
+                            <div>
+                                <h2 class="font-bold text-lg">{{ user.name }}</h2>
+                                <p class="text-xs text-gray-500">{{ props.followerCount }} follower(s)</p>
+                            </div>
+                            <div>
+                                <DangerButton v-if="isCurrentUserFollower" @click="followUser">
+                                    Unfollow
+                                </DangerButton>
+                                <PrimaryButton v-else @click="followUser">
+                                    Follow
+                                </PrimaryButton>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,6 +142,8 @@ import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import TabItem from './Partials/TabItem.vue';
 import Edit from './Edit.vue';
 import { XMarkIcon, CheckCircleIcon, CameraIcon } from '@heroicons/vue/24/solid'
+import PrimaryButton from '../../Components/PrimaryButton.vue';
+import DangerButton from '../../Components/DangerButton.vue';
 
 const imagesForm = useForm({
     avatar: null,
@@ -155,6 +170,8 @@ const props = defineProps({
     success: {
         type: String,
     },
+    isCurrentUserFollower: Boolean,
+    followerCount: Number,
     user: {
         type: Object
     }
@@ -215,6 +232,16 @@ function submitAvatarImage() {
             showNotification.value = false;
         }, 5000)
         }
+    })
+}
+
+function followUser() {
+    const form = useForm({
+        follow: !props.isCurrentUserFollower
+    })
+
+    form.post(route('user.follow', props.user.id), {
+        preserveScroll: true
     })
 }
 
