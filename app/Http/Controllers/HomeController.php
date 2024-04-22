@@ -15,11 +15,11 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::id();
-        $showingPosts = Post::postsForTimeline($userId)
+        $posts = Post::postsForTimeline($userId)
         ->paginate(10);
 
 
-        $posts = PostResource::collection($showingPosts);
+        $posts = PostResource::collection($posts);
         if ($request->wantsJson()) {
             return $posts;
         }

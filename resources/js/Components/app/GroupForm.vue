@@ -17,18 +17,25 @@
     </div>
     <div class="mb-3">
         <label>About Group</label>
-        <InputTextarea v-model="form.about" class="w-full"/>
+        <ckeditor :editor="editor" v-model="form.about" :config="editorConfig"></ckeditor>
     </div>
 </template>
 
 <script setup>
 import Checkbox from '@/Components/Checkbox.vue';
 import TextInput from '@/Components/TextInput.vue';
-import InputTextarea from '../InputTextarea.vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 defineProps ({
     form: Object
 })
+
+const editor = ClassicEditor;
+
+const editorConfig = {
+    toolbar: ['heading', '|', 'bold', 'italic', '|', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', '|', 'blockQuote'],
+}
+
 </script>
 
 <style lang="scss" scoped>

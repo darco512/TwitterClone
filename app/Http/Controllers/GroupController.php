@@ -44,10 +44,10 @@ class GroupController extends Controller
         $userId = Auth::id();
 
         if($group->hasApprovedUser($userId)) {
-            $showingPosts = Post::postsForTimeline($userId)
+            $posts = Post::postsForTimeline($userId)
                 ->where('group_id', $group->id)
                 ->paginate(3);
-            $posts = PostResource::collection($showingPosts);
+            $posts = PostResource::collection($posts);
         } else {
 
             return Inertia::render('Group/View', [
