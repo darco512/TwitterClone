@@ -65,7 +65,11 @@ class PostController extends Controller
             if ($group) {
                 $users = $group->approvedUsers()->where('users.id', '!=', $user->id)->get();
                 Notification::send($users, new PostCreated($post, $group));
+
             }
+
+            $followers = $user->followers;
+            Notification::send($followers , new PostCreated($post, $user, null));
 
             DB::commit();
 

@@ -130,7 +130,7 @@
                                 <UserItem
                                     v-for="user of followers"
                                     :user="user"
-                                    :key="user.id "
+                                    :key="user.id"
                                     class="shadow rounded-lg"
                                 />
                             </div>
