@@ -29,9 +29,10 @@ defineProps({
 })
 
 const authUser = usePage().props.auth.user;
+
 const showEditModal = ref(false)
-const showAttachmentsModal = ref(false)
 const editPost = ref({})
+const showAttachmentsModal = ref(false)
 const previewAttachmentsPost = ref({})
 
 function openEditModal(post) {

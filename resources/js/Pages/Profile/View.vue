@@ -155,7 +155,7 @@
                             </div>
                         </TabPanel>
                         <TabPanel>
-                            Photos
+                            <TabPhotos :photos="photos"/>
                         </TabPanel>
                         <TabPanel v-if="isMyProfile">
                             <Edit :must-verify-email="mustVerifyEmail" :status="status"/>
@@ -182,6 +182,8 @@ import CreatePost from '../../Components/app/CreatePost.vue';
 import PostList from '../../Components/app/PostList.vue';
 import UserItem from '../../Components/app/UserItem.vue';
 import TextInput from '../../Components/TextInput.vue';
+import PostAttachments from '../../Components/app/PostAttachments.vue';
+import TabPhotos from './TabPhotos.vue';
 
 const imagesForm = useForm({
     avatar: null,
@@ -191,12 +193,11 @@ const imagesForm = useForm({
 const showNotification = ref(true)
 const coverImageSrc = ref('')
 const avatarImageSrc = ref('')
-const authUser = usePage().props.auth.user;
 const searchFollowers = ref('')
 const searchFollowings = ref('')
-const isMyProfile = computed(() => {
-    return authUser && authUser.id === props.user.id
-})
+const authUser = usePage().props.auth.user;
+
+const isMyProfile = computed(() => authUser && authUser.id === props.user.id)
 
 const props = defineProps({
     errors: Object,
@@ -216,7 +217,8 @@ const props = defineProps({
     },
     posts: Object,
     followers: Array,
-    followings: Array
+    followings: Array,
+    photos: Array
 });
 
 function onCoverChange(event) {
@@ -286,6 +288,7 @@ function followUser() {
         preserveScroll: true
     })
 }
+
 
 </script>
 
