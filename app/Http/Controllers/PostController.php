@@ -24,8 +24,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class PostController extends Controller
 {
@@ -307,5 +307,26 @@ class PostController extends Controller
         return inertia('Post/View', [
             'post' => new PostResource($post)
         ]);
+    }
+
+    public function aiPostContent(Request $request)
+    {
+        $prompt = $request->get('prompt');
+
+        // $result = OpenAI::chat()->create([
+        //     'model' => 'gpt-3.5-turbo',
+        //     'messages' => [
+        //         [
+        //             'role' => 'user',
+        //             'content' => 'Please generate social media post content based on the following prompt. Generate foramted content with            multiple paragraphs. Put  hastags after 2 lines from the main content'. PHP_EOL .PHP_EOL. "Prompt: " .PHP_EOL .
+        //                  $prompt,
+
+        //         ],
+        //     ],
+        // ]);
+
+        // return response(['content' => $result->choices[0]->message->content]);
+
+        return response(['content' => "We have a greate new for you my friend"]);
     }
 }

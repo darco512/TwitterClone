@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/download/{attachment}', [PostController::class, 'downloadAttachment'])->name('post.download');
         Route::post('/{post}/reaction', [PostController::class, 'postReaction'])->name('post.reaction');
         Route::post('/{post}/comment', [PostController::class, 'createComment'])->name('post.comment.create');
+        Route::post('/ai-post', [PostController::class, 'aiPostContent'])->name('post.aiContent');
     });
 
 

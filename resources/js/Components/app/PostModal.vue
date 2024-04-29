@@ -50,7 +50,22 @@
                             {{ formErrors.group_id }}
                         </div>
 
-                        <ckeditor :editor="editor" v-model="form.body" :config="editorConfig"></ckeditor>
+                        <div class="relative group">
+                            <ckeditor :editor="editor" v-model="form.body" :config="editorConfig"></ckeditor>
+                            <button
+                                @click="getAIContent"
+                                :disabled="aiButtonLoading"
+                                class="absolute right-1 top-12 w-8 h-8 p-1 rounded bg-indigo-500 hover:bg-indigo-600 text-white flex justify-center items-center transition-all opacity-0 group-hover:opacity-100 disabled:cursor-not-allowed disabled:bg-indigo-400 disabled:hover:bg-indigo-400"
+                            >
+                                <svg v-if="aiButtonLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <SparklesIcon v-else class="w-4 h-4"/>
+                            </button>
+                        </div>
+
+
                         <div v-if="showExtensionsText" class="border-l-4 border-amber-500 py-2 px-3 bg-amber-100 mt-3 text-gray-800">
                             Files must be one of the following extensions: <br>
                             <small>{{ attachmentExtensions.join(', ') }}</small>
@@ -136,11 +151,11 @@ DialogPanel,
 DialogTitle,
 } from '@headlessui/vue'
 import PostUserHeader from './PostUserHeader.vue';
-import { ArrowUturnLeftIcon, BookmarkIcon, PaperClipIcon, XMarkIcon } from '@heroicons/vue/24/solid';
+import { ArrowUturnLeftIcon, BookmarkIcon, PaperClipIcon, SparklesIcon, XMarkIcon } from '@heroicons/vue/24/solid';
 import { useForm, usePage } from '@inertiajs/vue3';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { isImage } from '../../helpers';
-
+import axiosClient from '@/axiosClient.js';
 
 const editor = ClassicEditor;
 
@@ -174,6 +189,7 @@ const attachmentExtensions = usePage().props.attachmentExtensions;
 const attachmentFiles = ref([])
 const attachmentErrrors = ref([])
 const formErrors = ref({})
+const aiButtonLoading = ref(false)
 
 const form = useForm({
     body: '',
@@ -306,5 +322,24 @@ function processErrors(errors){
   function undoDelete(myFile) {
     myFile.deleted = false;
     form.deleted_file_ids = form.deleted_file_ids.filter(id => myFile.id !== id)
+  }
+
+  function getAIContent() {
+    if(!form.body){
+        return
+    }
+    aiButtonLoading.value = true;
+
+    axiosClient.post(route('post.aiContent'), {
+        prompt: form.body
+    })
+        .then(({data}) => {
+            form.body = data.content
+            aiButtonLoading.value = false
+        })
+        .catch(err => {
+            console.log(err);
+            aiButtonLoading.value = false
+        })
   }
   </script>
