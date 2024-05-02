@@ -15,6 +15,12 @@
 
             <img v-if="isImage(attachment)" :src="attachment.url" class="object-contain aspect-square"/>
 
+            <div v-else-if="isVideo(attachment)" class="relative flex justify-center items-center">
+                <PlayCircleIcon class="absolute z-20 w-16 h-16 cursor-pointer text-white" />
+                <div class="absolute left-0 top-0 w-full h-full bg-black/50 z-10"></div>
+                <video :src="attachment.url"></video>
+            </div>
+
             <template v-else class="flex flex-col justify-center items-center">
                 <PaperClipIcon class="w-10 h-10 mb-3"/>
                 <small>{{ attachment.name }}</small>
@@ -24,8 +30,9 @@
 </template>
 
 <script setup>
-import { PaperClipIcon, ArrowDownTrayIcon } from '@heroicons/vue/24/solid';
+import { PaperClipIcon, ArrowDownTrayIcon, PlayIcon, PlayCircleIcon } from '@heroicons/vue/24/solid';
 import { isImage } from '@/helpers.js';
+import { isVideo } from '@/helpers.js';
 
 defineProps({
     attachments: Array
