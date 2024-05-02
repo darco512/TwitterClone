@@ -6,13 +6,14 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import TextInput from '@/Components/TextInput.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
-const authUser = usePage().props.auth.user;
 
 const showingNavigationDropdown = ref(false);
-const keywords = ref(usePage().props.search)
+const keywords = ref(usePage().props.search);
+
+const authUser = usePage().props.auth.user;
 
 function search(){
-    router.get(route('search', keywords.value))
+    router.get(route('search', encodeURIComponent(keywords.value)))
 }
 
 </script>

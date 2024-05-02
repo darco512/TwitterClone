@@ -103,6 +103,10 @@
     color: blue;
 }
 
+.ck-content-output a.hastag{
+    background-color: #eaf4ff;
+}
+
 .comment-list::-webkit-scrollbar {
     width: 12px;
     background-color: transparent;

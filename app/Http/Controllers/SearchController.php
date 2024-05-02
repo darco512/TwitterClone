@@ -14,9 +14,9 @@ class SearchController extends Controller
 {
     public function search(Request $request, string $search = null)
     {
-        if(!$search) {
+        if(!$search)
             return redirect(route('dashboard'));
-        }
+
         $users = User::query()
             ->where('name', 'like', "%$search%")
             ->orWhere('username', 'like', "%$search%")
