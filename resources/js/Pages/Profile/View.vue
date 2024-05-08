@@ -14,7 +14,7 @@
                 >
                     {{ errors.cover }}
                 </div>
-                <div class="relative group bg-white">
+                <div class="relative group bg-white dark:bg-slate-950 dark:text-gray-100">
                     <img :src="coverImageSrc || user.cover_url || '/image/default_cover.jpg'" class="w-full h-[200px] object-cover"/>
                     <div class="absolute top-2 right-2">
                         <button v-if="!coverImageSrc" class="bg-gray-50 hover:bg-gray-100 text-gray-800 py-1 px-2 text-xs flex items-center opacity-0 group-hover:opacity-100">
@@ -92,9 +92,9 @@
                     </div>
                 </div>
             </div>
-            <div class="border-t p-4 pt-0">
+            <div class="border-t m-4 mt-0">
                 <TabGroup>
-                    <TabList class="flex bg-white">
+                    <TabList class="flex bg-white dark:bg-slate-950 dark:text-white">
                         <Tab v-slot="{ selected }" as="template">
                             <TabItem text="Posts" :selected="selected" />
                         </Tab>

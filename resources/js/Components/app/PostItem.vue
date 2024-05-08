@@ -92,7 +92,7 @@ const isPinned = computed(() => {
 
 </script>
 <template>
-    <div class="bg-white border rounded p-4 shadow mb-3">
+    <div class="bg-white border dark:bg-slate-950 dark:border-slate-900 dark:text-gray-100 rounded p-4 shadow mb-3">
         <div class="flex items-center justify-between mb-3">
             <PostUserHeader :post="post" />
             <div class="flex items-center">
@@ -122,9 +122,9 @@ const isPinned = computed(() => {
             <div class="flex gap-2">
                 <button
                     @click="sendReaction"
-                    class="flex flex-1 gap-1 items-center py-2 px-4 justify-center text-gray-800 rounded-lg"
+                    class="flex flex-1 gap-1 items-center py-2 px-4 justify-center text-gray-800 dark:text-gray-100 rounded-lg"
                     :class="[
-                        post.current_user_has_reaction ? 'bg-sky-100 hover:bg-sky-200' : 'bg-gray-100 hover:bg-gray-200'
+                        post.current_user_has_reaction ? 'bg-sky-100 dark:bg-sky-900 hover:bg-sky-200 dark:hover:bg-sky-950' : 'bg-gray-100 dark:bg-slate-900 hover:bg-gray-200 dark:hover:bg-slate-800'
                     ]"
                 >
                     <HandThumbUpIcon class="mr-2 h-5 w-5"/>
@@ -132,7 +132,7 @@ const isPinned = computed(() => {
                     {{ post.current_user_has_reaction ? 'Unlike' : 'Like' }}
                 </button>
                 <DisclosureButton
-                    class="flex flex-1 gap-1 items-center py-2 px-4 justify-center text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-lg"
+                    class="flex flex-1 gap-1 items-center py-2 px-4 justify-center text-gray-800 dark:text-gray-100 'bg-gray-100 dark:bg-slate-900 hover:bg-gray-200 dark:hover:bg-slate-800 rounded-lg"
                 >
                     <ChatBubbleLeftRightIcon class="mr-2 h-5 w-5"/>
                     <span class="mr-2">{{ post.num_of_comments }}</span>

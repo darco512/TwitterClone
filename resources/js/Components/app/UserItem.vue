@@ -22,7 +22,7 @@ import PrimaryButton from '../PrimaryButton.vue';
 </script>
 
 <template>
-    <div class="cursor-pointer bg-white border-2 border-transparent transition-all hover:border-indigo-600">
+    <div class="cursor-pointer bg-white dark:bg-slate-900 dark:text-gray-100 border-2 border-transparent transition-all dark:hover:bg-slate-900">
         <div class="flex items-center gap-2 py-2 px-2">
             <Link :href="route('profile', user.username)">
                 <img :src="user.avatar_url" class="w-[32px] rounded-full" />
