@@ -18,6 +18,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'body' => $this->body,
             'preview' => $this->preview,
+            'pinned' => $this->pinned,
             'preview_url' => $this->preview_url,
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
