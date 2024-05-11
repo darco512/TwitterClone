@@ -79,7 +79,7 @@
                                     <h2 class="font-bold text-lg">{{ user.name }}</h2>
                                     <p class="text-xs text-gray-500">{{ props.followerCount }} follower(s)</p>
                                 </div>
-                                <div v-if="authUser.id !== user.id">
+                                <div v-if="!isMyProfile">
                                     <DangerButton v-if="isCurrentUserFollower" @click="followUser">
                                         Unfollow
                                     </DangerButton>

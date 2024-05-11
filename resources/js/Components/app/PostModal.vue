@@ -2,7 +2,6 @@
     <BaseModal :title="post.id ? 'Update Post' : 'Create Post'"
         v-model="show"
         @hide="closeModal"
-        class="dark:text-gray-100"
     >
         <div class="p-4">
             <PostUserHeader :post="post" :show-time="false" class="mb-4 dark:text-gray-100"/>

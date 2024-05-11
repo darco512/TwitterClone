@@ -1,11 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import TextInput from '@/Components/TextInput.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
+import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid';
 
 const showingNavigationDropdown = ref(false);
 const keywords = ref(usePage().props.search || '');
@@ -14,6 +15,17 @@ const authUser = usePage().props.auth.user;
 
 function search(){
     router.get(route('search', encodeURIComponent(keywords.value)))
+}
+
+function toogleDarkMode(){
+    const html = window.document.documentElement
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark')
+        localStorage.setItem('darkMode', '0')
+    } else {
+        html.classList.add('dark')
+        localStorage.setItem('darkMode', '1')
+    }
 }
 
 </script>
@@ -36,8 +48,12 @@ function search(){
 
                         </div>
 
-                        <div class="flex-1">
+                        <div class="flex-1 flex items-center gap-2">
                             <TextInput v-model="keywords" placeholder="Search on the website" class="w-full" @keyup.enter="search"/>
+
+                            <button @click="toogleDarkMode" class="dark:text-white">
+                                <MoonIcon class="h-5 w-5"/>
+                            </button>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center">
@@ -76,7 +92,7 @@ function search(){
                                     </template>
                                 </Dropdown>
                                 <div v-else>
-                                    <Link :href="route('login')">
+                                    <Link :href="route('login')" class="dark:text-gray-100">
                                         Login
                                     </Link>
                                 </div>
